@@ -51,14 +51,6 @@ class UumuuFsm : CSFsm<UumuuFsm>
         }
     }
     [FsmState]
-    private IEnumerator QuirrelRoam()
-    {
-        SetName("Quirrel Roam");
-        DefineEvent("FINISHED", nameof(SpawnShield));
-        yield return StartActionContent;
-        FSMUtility.SetBool(quirrelLand.Value.LocateMyFSM("Watch"), "Roam", true);
-    }
-    [FsmState]
     private IEnumerator SpawnJF()
     {
         DefineEvent("FINISHED", inGG ? nameof(SpawnShield) : "Attack Recover");
@@ -155,6 +147,12 @@ class UumuuFsm : CSFsm<UumuuFsm>
         }
         else
         {
+            if(dontSpawnJF)
+            {
+                dontSpawnJF = false;
+                yield return "SPAWN SHIELD";
+            }
+            dontSpawnJF = true;
             yield return "CALL QUIRREL";
         }
 
@@ -190,7 +188,7 @@ class UumuuFsm : CSFsm<UumuuFsm>
             hm.OnDeath += () =>
             {
                 shieldCount--;
-                if(shieldCount <= 0)
+                if(shieldCount <= 0 && this.hm.IsInvincible)
                 {
                     FsmComponent.SendEvent("UUMUU SHIELD BREAK");
                 }
