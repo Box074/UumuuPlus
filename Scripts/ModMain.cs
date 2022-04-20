@@ -1,5 +1,6 @@
-
+[assembly: NeedHKToolVersion(default)]
 namespace UumuuPlusMod;
+
 
 class UumuuPlus : ModBase
 {

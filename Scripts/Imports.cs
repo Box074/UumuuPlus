@@ -7,6 +7,7 @@ global using Modding;
 global using HKTool;
 global using HKTool.Attributes;
 global using HKTool.FSM;
+global using HKTool.FSM.CSFsm;
 global using HKTool.SpecialBehaviour;
 
 global using UnityEngine;

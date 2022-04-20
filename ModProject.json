@@ -6,8 +6,8 @@
   "EmbeddedResource": {},
   "Guid": "8881138a-e7fe-4888-9285-a2fe66fc126c",
   "DependenciesDir": ".\\Dependencies\\",
-  "ModdingAPIVersion": "1.5.78.11833-68",
   "IgnoreDlls": [],
   "WebDependencies": [],
-  "UseGZip": true
+  "UseGZip": true,
+  "EnableNullable": false
 }
