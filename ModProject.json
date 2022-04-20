@@ -1,6 +1,6 @@
 {
   "ProjectName": "UumuuPlus",
-  "ModVersion": "0.0.0.0",
+  "ModVersion": "1.0.0.0",
   "CodeDir": ".\\Scripts\\",
   "EmbeddedResourceDir": ".\\EmbeddedResource\\",
   "EmbeddedResource": {},
