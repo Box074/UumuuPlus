@@ -6,8 +6,6 @@ class UumuuPlus : ModBase
 {
     public static GameObject jfSpawner;
     public static GameObject jfBaby;
-    public static GameObject uumuu;
-    public static GameObject uumuuGG;
     public static GameObject slugAtk;
     public static AudioClip uAttack;
     public static GameObject roarPrefab;
@@ -15,13 +13,7 @@ class UumuuPlus : ModBase
     public static GameObject spit;
     public override void Initialize()
     {
-        exp = UnityEngine.Object.Instantiate(Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(
-                x => x.name == "Gas Explosion Recycle L"
-                ));
-        exp.transform.parent = null;
-        exp.SetActive(false);
-        UnityEngine.Object.DontDestroyOnLoad(exp);
-        UnityEngine.Object.Destroy(exp.LocateMyFSM("damages_enemy"));
+        
 
         ModHooks.ObjectPoolSpawnHook += (go) =>
         {
@@ -30,12 +22,19 @@ class UumuuPlus : ModBase
             return go;
         };
     }
-    [Preload("Crossroads_08", "Infected Parent/Spitting Zombie")]
+    [PreloadSharedAssets(32, "Gas Explosion Recycle L", typeof(GameObject))]
+    private void PreloadExplosionRecycle(GameObject go)
+    {
+        exp = UnityEngine.Object.Instantiate(go);
+        exp.transform.parent = null;
+        exp.SetActive(false);
+        UnityEngine.Object.DontDestroyOnLoad(exp);
+        UnityEngine.Object.Destroy(exp.LocateMyFSM("damages_enemy"));
+    }
+    [PreloadSharedAssets(32, "Shot Mawlek", typeof(GameObject))]
     private void PreloadSpittingZombie(GameObject go)
     {
-        spit = go.LocateMyFSM("Spit").Fsm.GetState("Spawn Bullet L")
-            .GetFSMStateActionOnState<FlingObjectsFromGlobalPoolVel>().gameObject.Value;
-        UnityEngine.Object.Destroy(go);
+        spit = go;
     }
     [Preload("GG_Uumuu", "Jellyfish Spawner")]
     private void PreloadJFSpawner(GameObject go)
@@ -47,22 +46,22 @@ class UumuuPlus : ModBase
     {
         jfBaby = go;
     }
-    [Preload("GG_Uumuu", "Mega Jellyfish GG")]
-    private void PreloadGGUumuu(GameObject go)
+    [PreloadSharedAssets("GG_Uumuu", "Roar Wave Emitter", typeof(GameObject))]
+    private void PreloadRoar(GameObject go)
     {
-        uumuuGG = go;
-        var ctrl = go.LocateMyFSM("Mega Jellyfish");
-        roarPrefab = ctrl.Fsm.GetState("Roar")
-            .GetFSMStateActionOnState<CreateObject>().gameObject.Value;
-        uAttack = ctrl.Fsm.GetState("Roar")
-            .GetFSMStateActionOnState<AudioPlayerOneShotSingle>().audioClip.Value as AudioClip;
+        roarPrefab = go;
     }
-    [Preload("GG_Ghost_Gorb", "Warrior/Ghost Warrior Slug")]
-    private void PreloadSlugAtk(GameObject go)
+    [PreloadSharedAssets(161, "Shot Slug Spear", typeof(GameObject))]
+    private void PreloadSlugSpear(GameObject go)
     {
-        slugAtk = go.LocateMyFSM("Attacking")
-            .Fsm.GetState("Attack").GetFSMStateActionOnState<SpawnObjectFromGlobalPool>().gameObject.Value;
+        slugAtk = go;
     }
+    [PreloadSharedAssets("GG_Uumuu", "mega_laser_burst", typeof(AudioClip))]
+    private void PreloadAtkAC(AudioClip clip)
+    {
+        uAttack = clip;
+    }
+
     public static bool CheckGGUumuu()
     {
         var curS = USceneManager.GetActiveScene();
