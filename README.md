@@ -1,6 +1,6 @@
 # UumuuPlus
 
-A mod that strengthens Uumuu, inspired by a Discord user named
+A mod that strengthens Uumuu, inspired by a Discord user named Bigal
 
 - [x] Uumuu’s health is increased to 900
 
