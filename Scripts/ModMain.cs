@@ -1,4 +1,4 @@
-[assembly: NeedHKToolVersion(default)]
+
 namespace UumuuPlusMod;
 
 
@@ -46,7 +46,7 @@ class UumuuPlus : ModBase
     {
         jfBaby = go;
     }
-    [PreloadSharedAssets("GG_Uumuu", "Roar Wave Emitter", typeof(GameObject))]
+    [PreloadSharedAssets(466, "Roar Wave Emitter", typeof(GameObject))]
     private void PreloadRoar(GameObject go)
     {
         roarPrefab = go;
@@ -56,7 +56,7 @@ class UumuuPlus : ModBase
     {
         slugAtk = go;
     }
-    [PreloadSharedAssets("GG_Uumuu", "mega_laser_burst", typeof(AudioClip))]
+    [PreloadSharedAssets(466, "mega_laser_burst", typeof(AudioClip))]
     private void PreloadAtkAC(AudioClip clip)
     {
         uAttack = clip;

@@ -138,10 +138,12 @@ class UumuuFsm : CSFsm<UumuuFsm>
         {
             if (dontSpawnJF)
             {
+                dontSpawnJF = false;
                 yield return "SPAWN SHIELD";
             }
             else
             {
+                dontSpawnJF = true;
                 yield return "SPAWN JF";
             }
         }
